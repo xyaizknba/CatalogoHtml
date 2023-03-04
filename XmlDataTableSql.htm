@@ -1,0 +1,102 @@
+<html><head><title></title>
+<script src="https://cdn.jsdelivr.net/gh/xyaizknba/ArmandoRamos@v1/ar.js"></script><script>
+var iNumeroMenus=10,iNumeroSubMenus=5,blnVerUrl=false;
+if(Ar82("iMenus").length > 0 && Ar82("iSubMenus").length > 0){
+   iNumeroMenus=Ar83("iMenus") ,iNumeroSubMenus=Ar83("iSubMenus");
+} else {
+  iNumeroMenus=Number(window.prompt("Numero Maximo de Menus:","10")) ,iNumeroSubMenus=Number(window.prompt("Numero Maximo de Sub-Menus:","5"));
+  blnVerUrl=true;
+}
+//////////////////////////////
+function EtiquetaSubMenu(iMnu){document.getElementById(("txtMnu"+iMnu)).value=Ar50(document.getElementById(("txtMnu"+iMnu)).value);}
+//////////////////////////////
+function NombreArchivo(iMnu,iSubMnu){document.getElementById(("txtArc"+iSubMnu+"Mnu"+iMnu)).value=Ar37(document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value)+document.getElementById("extArc").value;}
+////////////////////////////
+function cmdGenerar_onClick(){
+ var sCod="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<Estaticas>\n <Menu><Descripcion>"+(document.getElementById("txtInicio").value.length > 0 ? document.getElementById("txtInicio").value : "Inicio" )+"</Descripcion></Menu>\n";
+ for(var iMnu=1;iMnu<=iNumeroMenus;iMnu++){if(document.getElementById(("txtMnu"+iMnu)).value.length>0){sCod+=" <Menu><Descripcion>"+document.getElementById(("txtMnu"+iMnu)).value+"</Descripcion></Menu>\n";}}
+ for(var iMenu=1;iMenu<=iNumeroMenus;iMenu++){ 
+  if(Ar506("txtMnu"+iMenu) && document.getElementById(("txtMnu"+iMenu)).value.length>0){ sCod+="\n\n<DataTable>\n"; }
+  for(var iSumMenu=1;iSumMenu<=iNumeroSubMenus;iSumMenu++){sCod+=AgregarTabla(iMenu,iSumMenu);}
+  if(Ar506("txtMnu"+iMenu) && document.getElementById(("txtMnu"+iMenu)).value.length>0){ sCod+="</DataTable>\n\n"; }
+ }
+ sCod+="</Estaticas>\n";Ar200("txtCodigo",sCod);
+ Seleccionar();
+}
+/////////////////////////////
+function EstNumCam(iMnu,iSubMnu){
+ var sNumCam="",sCamDB="",iNumeroCampos=ValorNumerico(("txtNum"+iSubMnu+"Mnu"+iMnu));
+ var sAli=Ar5("1,", iNumeroCampos);sAli=sAli.substring(0,sAli.length-1);
+ Ar200(("txtAli"+iSubMnu+"Mnu"+iMnu),sAli);
+ for(var i=1;i<=iNumeroCampos;i++){sNumCam+="Campo"+i+"@@"; sCamDB+="Campo"+i+",";}
+ sNumCam = sNumCam.substring(0,sNumCam.length-2);
+ Ar200(("txtLbl"+iSubMnu+"Mnu"+iMnu),sNumCam);
+ 
+ sCamDB = sCamDB.substring(0,sCamDB.length-1);
+ Ar200(("txtNomCam"+iSubMnu+"Mnu"+iMnu),sCamDB);
+ 
+ 
+}
+//////////////////////////
+function AgregarTabla(iMnu,iSubMnu){
+ var sTbl="",sSQL=document.getElementById(("txtSql"+iSubMnu+"Mnu"+iMnu)).value,
+  sNombreArc=document.getElementById(("txtArc"+iSubMnu+"Mnu"+iMnu)).value,
+  sNumCa=document.getElementById(("txtNum"+iSubMnu+"Mnu"+iMnu)).value;
+  
+ if( document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value.length > 0 && (sSQL.length>0 && sNombreArc.length>0 && sNumCa.length>0 )){
+   sTbl+=" <Tabla>\n";
+   sTbl+="  <Sql>"+sSQL+"</Sql>\n";
+   sTbl+="  <CamposDb>"+document.getElementById(("txtNomCam"+iSubMnu+"Mnu"+iMnu)).value+"</CamposDb>\n";
+   sTbl+="  <TituloHtm>"+document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value+"</TituloHtm>\n";   
+   sTbl+="  <EtiquetaCampos>"+document.getElementById(("txtLbl"+iSubMnu+"Mnu"+iMnu)).value+"</EtiquetaCampos>\n";
+   sTbl+="  <AlineacionDatos>"+document.getElementById(("txtAli"+iSubMnu+"Mnu"+iMnu)).value+"</AlineacionDatos>\n";
+   sTbl+="  <Parrafo1>"+document.getElementById(("txtP1_"+iSubMnu+"Mnu"+iMnu)).value+"</Parrafo1>\n";   
+   sTbl+="  <Parrafo2>"+document.getElementById(("txtP2_"+iSubMnu+"Mnu"+iMnu)).value+"</Parrafo2>\n";
+   sTbl+="  <NombreArchivo>"+sNombreArc+"</NombreArchivo>\n";      
+   sTbl+=" </Tabla>\n\n";            
+ }
+ return sTbl;
+}
+///////////////////
+function Seleccionar(){document.frm.txtCodigo.select(); document.execCommand("copy");}
+///////////////////
+</script></head>
+<body bgcolor="#DCDCDC">
+
+
+<div align="center" id="Codigo">
+<script>
+var sCod=""; 
+if(blnVerUrl){
+ sCod+="<p>Indica el Numero Maximo de Menus y el Numero Maximo de Submenus agrega los siguientes parametros a la URL:</p>";
+ sCod+="<h2>?iMenus=<font color=\"red\">2</font>&iSubMenus=<font color=\"red\">10</font></h2>"; 
+}
+sCod+="<form name=\"frm\"><table>\n";
+sCod+="<tr><td>Texto para la Pagina de Inicio index: <input type=\"text\" id=\"txtInicio\" value=\"Inicio\" size=\"20\">&nbsp;&nbsp;&nbsp;&nbsp;Extension Archivos:<input type=\"text\" id=\"extArc\" size=\"5\" maxlength=\"5\" value=\".php\"></td></tr>\n";
+for(var iMnuX=1;iMnuX <= iNumeroMenus; iMnuX++){
+ sCod+="<tr align=\"center\"><th bgcolor=\"#ADD8E6\"><h1>Texto Menu "+iMnuX+":<input type=\"text\" id=\"txtMnu"+iMnuX+"\" size=\"30\" onblur=\"EtiquetaSubMenu("+iMnuX+")\"></h1></th></tr>\n";
+ for(var iTbl=1;iTbl<=iNumeroSubMenus;iTbl++){
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Texto SubMenu "+iTbl+":<input type=\"text\" id=\"txtSub"+iTbl+"Mnu"+iMnuX+"\" onblur=\"NombreArchivo("+iMnuX+","+iTbl+")\">&nbsp;&nbsp;Nombre del Archivo :<input type=\"text\" id=\"txtArc"+iTbl+"Mnu"+iMnuX+"\" size=\"30\">&nbsp;&nbsp;Numero de Campos: <input type=\"text\" id=\"txtNum"+iTbl+"Mnu"+iMnuX+"\" size=\"2\" maxlength=\"2\" onkeyup=\"Ar94(this)\" onblur=\"EstNumCam("+iMnuX+","+iTbl+")\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Consulta SQL: <textarea id=\"txtSql"+iTbl+"Mnu"+iMnuX+"\" cols=\"100\" rows=\"3\"></textarea></td></tr>\n";
+  
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">Nombre Campos SQL: <input type=\"text\" id=\"txtNomCam"+iTbl+"Mnu"+iMnuX+"\" size=\"100\"></td></tr>\n";  
+  
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">Etiqueta Campos: <input type=\"text\" id=\"txtLbl"+iTbl+"Mnu"+iMnuX+"\" size=\"100\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Alineacion de Datos: <input type=\"text\" id=\"txtAli"+iTbl+"Mnu"+iMnuX+"\" size=\"20\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">Texto Parrafo 1:<input type=\"text\" id=\"txtP1_"+iTbl+"Mnu"+iMnuX+"\" size=\"30\">&nbsp;&nbsp;&nbsp;&nbsp;Texto Parrafo 2:<input type=\"text\" id=\"txtP2_"+iTbl+"Mnu"+iMnuX+"\" size=\"30\"></td></tr>\n";
+  sCod+="<tr><td><br></td></tr>";
+ }
+ sCod+="<tr><td><br></td></tr>";
+}
+sCod+="<tr align=\"center\"><td><input type=\"button\" value=\"Generar\" onclick=\"cmdGenerar_onClick()\"></td></tr>\n";
+sCod+="<tr align=\"center\"><td><textarea rows=\"20\" cols=\"120\" id=\"txtCodigo\" name=\"txtCodigo\"></textarea></td></tr>\n";
+sCod+="</table></form>\n";
+Ar201("Codigo",sCod);
+</script>
+</div>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,261 @@
+<html><head><title></title>
+<script src="https://cdn.jsdelivr.net/gh/xyaizknba/ArmandoRamos@v1/ar.js"></script><script>
+var iNumeroMenus=10,iNumeroSubMenus=5,blnVerUrl=false;
+if(Ar82("iMenus").length > 0 && Ar82("iSubMenus").length > 0){
+   iNumeroMenus=Ar83("iMenus") ,iNumeroSubMenus=Ar83("iSubMenus");
+} else {
+  iNumeroMenus=Number(window.prompt("Numero Maximo de Menus:","10")) ,iNumeroSubMenus=Number(window.prompt("Numero Maximo de Sub-Menus:","5"));
+  blnVerUrl=true;
+}
+//////////////////////////////
+function EtiquetaSubMenu(iMnu){document.getElementById(("txtMnu"+iMnu)).value=Ar50(document.getElementById(("txtMnu"+iMnu)).value);}
+//////////////////////////////
+function NombreArchivo(iMnu,iSubMnu){document.getElementById(("txtArc"+iSubMnu+"Mnu"+iMnu)).value=Ar37(document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value)+document.getElementById("extArc").value;}
+////////////////////////////
+function cmdGenerar_onClick(){
+ var sCod="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<Estaticas>\n <Menu><Descripcion>"+(document.getElementById("txtInicio").value.length > 0 ? document.getElementById("txtInicio").value : "Inicio" )+"</Descripcion></Menu>\n";
+ for(var iMnu=1;iMnu<=iNumeroMenus;iMnu++){if(document.getElementById(("txtMnu"+iMnu)).value.length>0){sCod+=" <Menu><Descripcion>"+document.getElementById(("txtMnu"+iMnu)).value+"</Descripcion></Menu>\n";}}
+ for(var iMenu=1;iMenu<=iNumeroMenus;iMenu++){ 
+  if(Ar506("txtMnu"+iMenu) && document.getElementById(("txtMnu"+iMenu)).value.length>0){ sCod+="\n\n<DataTable>\n"; }
+  for(var iSumMenu=1;iSumMenu<=iNumeroSubMenus;iSumMenu++){sCod+=AgregarTabla(iMenu,iSumMenu);}
+  if(Ar506("txtMnu"+iMenu) && document.getElementById(("txtMnu"+iMenu)).value.length>0){ sCod+="</DataTable>\n\n"; }
+ }
+ sCod+="</Estaticas>\n";Ar200("txtCodigo",sCod);
+ Seleccionar();
+}
+/////////////////////////////
+function EstNumCam(iMnu,iSubMnu){
+ var sNumCam="",iNumeroCampos=ValorNumerico(("txtNum"+iSubMnu+"Mnu"+iMnu));
+ var sAli=Ar5("1,", iNumeroCampos);sAli=sAli.substring(0,sAli.length-1);
+ Ar200(("txtAli"+iSubMnu+"Mnu"+iMnu),sAli);Ar200(("txtFmt"+iSubMnu+"Mnu"+iMnu),sAli);Ar200(("txtPara"+iSubMnu+"Mnu"+iMnu),sAli);
+ for(var i=1;i<=iNumeroCampos;i++){sNumCam+="Campo"+i+"@@";}
+ sNumCam = sNumCam.substring(0,sNumCam.length-2);
+ Ar200(("txtLbl"+iSubMnu+"Mnu"+iMnu),sNumCam);
+}
+//////////////////////////
+function AgregarTabla(iMnu,iSubMnu){
+ var sTbl="",sSQL=document.getElementById(("txtSql"+iSubMnu+"Mnu"+iMnu)).value,
+  sNombreArc=document.getElementById(("txtArc"+iSubMnu+"Mnu"+iMnu)).value,
+  sNumCa=document.getElementById(("txtNum"+iSubMnu+"Mnu"+iMnu)).value;
+  
+ if( document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value.length > 0 && (sSQL.length>0 && sNombreArc.length>0 && sNumCa.length>0 )){
+   sTbl+=" <Tabla>\n";
+   sTbl+="  <Sql>"+sSQL+"</Sql>\n";
+   sTbl+="  <TituloHtm>"+document.getElementById(("txtSub"+iSubMnu+"Mnu"+iMnu)).value+"</TituloHtm>\n";   
+   sTbl+="  <EtiquetaCampos>"+document.getElementById(("txtLbl"+iSubMnu+"Mnu"+iMnu)).value+"</EtiquetaCampos>\n";
+   sTbl+="  <FormatoRegistro>"+document.getElementById(("txtFmt"+iSubMnu+"Mnu"+iMnu)).value+"</FormatoRegistro>\n";
+   sTbl+="  <ParametrosFormato>"+document.getElementById(("txtPara"+iSubMnu+"Mnu"+iMnu)).value+"</ParametrosFormato>\n";
+   sTbl+="  <AlineacionDatos>"+document.getElementById(("txtAli"+iSubMnu+"Mnu"+iMnu)).value+"</AlineacionDatos>\n";
+   sTbl+="  <Parrafo1>"+document.getElementById(("txtP1_"+iSubMnu+"Mnu"+iMnu)).value+"</Parrafo1>\n";   
+   sTbl+="  <Parrafo2>"+document.getElementById(("txtP2_"+iSubMnu+"Mnu"+iMnu)).value+"</Parrafo2>\n";
+   sTbl+="  <NombreArchivo>"+sNombreArc+"</NombreArchivo>\n";      
+   sTbl+=" </Tabla>\n\n";            
+ }
+ return sTbl;
+}
+///////////////////
+function Seleccionar(){document.frm.txtCodigo.select(); document.execCommand("copy");}
+///////////////////
+</script></head>
+<body bgcolor="#DCDCDC">
+
+<div align="center">
+<table border="1" bgcolor="white">
+<tr><th colspan="3">Formateo de Datos</th></tr>
+<tr><th>Formato</th><th>Parametro</th><th>Ejemplo / Descripcion</th></tr>
+<tr>
+ <td align="center">1</td>
+ <td align="center">1</td>
+ <td>Normal</td>
+</tr>
+<tr>
+ <td align="center">2</td>
+ <td align="center">1</td>
+ <td>Mayusculas</td>
+</tr>
+<tr>
+ <td align="center">3</td>
+ <td align="center">1</td>
+ <td>Minusculas</td>
+</tr>
+<tr>
+ <td align="center">4</td>
+ <td align="center">6</td>
+ <td>Ceros Iniciales (Con esta configuracion podria mostrar 000085)</td>
+</tr>
+<tr>
+ <td align="center">5</td>
+ <td align="center">Si-No</td>
+ <td><font color="red">1</font>Si - No<font color="red">0</font> (Tipo de datos numerico)</td>
+</tr>
+<tr>
+ <td align="center">6</td>
+ <td align="center">Verdadero-Falso</td>
+ <td><font color="red">1</font>Si - No<font color="red">0</font> (Tipo de datos cadena)</td>
+</tr>
+
+<tr>
+ <td align="center">7</td>
+ <td align="center">1</td>
+ <td>Numero Negativos en Rojo <font color="red">-67</font></td>
+</tr>
+<tr>
+ <td align="center">8</td>
+ <td align="center">Primer-Segundo</td>
+ <td>Cadena segun el Semestre</td>
+</tr>
+<tr>
+ <td align="center">9</td>
+ <td align="center">Primer-Segundo-Tercer-Cuarto</td>
+ <td>Cadena segun el Timestre</td>
+</tr>
+<tr>
+ <td align="center">10</td>
+ <td align="center">Primer-Segundo-Tercer</td>
+ <td>cadena segun el Cuatrimestre</td>
+</tr>
+<tr>
+ <td align="center">11</td>
+ <td align="center">1 <font color="blue">|</font> 2 <font color="blue">|</font> 3</td>
+ <td>Formateo de Fecha 1.- 04-16-1991 2.- 16-04-1991  3.- 1991-04-16</td>
+</tr>
+<tr>
+ <td align="center">12</td>
+ <td align="center">1</td>
+ <td>Formato Moneda $22,678.78</td>
+</tr>
+<tr>
+ <td align="center">13</td>
+ <td align="center">1</td>
+ <td>Formato Moneda a letra VeintiTres pesos 00/100 centavos</td>
+</tr>
+<tr>
+ <td align="center">14</td>
+ <td align="center">1 <font color="blue">|</font> 2 <font color="blue">|</font> 3</td>
+ <td>Formateo de Fecha (Date Time) 1.- 04-16-1991 2.- 16-04-1991  3.- 1991-04-16</td>
+</tr>
+<tr>
+ <td align="center">15</td>
+ <td align="center">1</td>
+ <td>Color de Fondo de Celda</td>
+</tr>
+</table>
+</div>
+
+
+
+<div align="center" id="Codigo">
+<script>
+var sCod=""; 
+if(blnVerUrl){
+ sCod+="<p>Indica el Numero Maximo de Menus y el Numero Maximo de Submenus agrega los siguientes parametros a la URL:</p>";
+ sCod+="<h2>?iMenus=<font color=\"red\">2</font>&iSubMenus=<font color=\"red\">10</font></h2>"; 
+}
+sCod+="<form name=\"frm\"><table>\n";
+sCod+="<tr><td>Texto para la Pagina de Inicio index: <input type=\"text\" id=\"txtInicio\" value=\"Inicio\" size=\"20\">&nbsp;&nbsp;&nbsp;&nbsp;Extension Archivos:<input type=\"text\" id=\"extArc\" size=\"5\" maxlength=\"5\" value=\".htm\"></td></tr>\n";
+for(var iMnuX=1;iMnuX <= iNumeroMenus; iMnuX++){
+ sCod+="<tr align=\"center\"><th bgcolor=\"#ADD8E6\"><h1>Texto Menu "+iMnuX+":<input type=\"text\" id=\"txtMnu"+iMnuX+"\" size=\"30\" onblur=\"EtiquetaSubMenu("+iMnuX+")\"></h1></th></tr>\n";
+ for(var iTbl=1;iTbl<=iNumeroSubMenus;iTbl++){
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Texto SubMenu "+iTbl+":<input type=\"text\" id=\"txtSub"+iTbl+"Mnu"+iMnuX+"\" onblur=\"NombreArchivo("+iMnuX+","+iTbl+")\">&nbsp;&nbsp;Nombre del Archivo :<input type=\"text\" id=\"txtArc"+iTbl+"Mnu"+iMnuX+"\" size=\"30\">&nbsp;&nbsp;Numero de Campos: <input type=\"text\" id=\"txtNum"+iTbl+"Mnu"+iMnuX+"\" size=\"2\" maxlength=\"2\" onkeyup=\"Ar94(this)\" onblur=\"EstNumCam("+iMnuX+","+iTbl+")\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Consulta SQL: <textarea id=\"txtSql"+iTbl+"Mnu"+iMnuX+"\" cols=\"100\" rows=\"3\"></textarea></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">Etiqueta Campos: <input type=\"text\" id=\"txtLbl"+iTbl+"Mnu"+iMnuX+"\" size=\"100\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">&nbsp;&nbsp;&nbsp;&nbsp;Alineacion de Datos: <input type=\"text\" id=\"txtAli"+iTbl+"Mnu"+iMnuX+"\" size=\"20\">&nbsp;&nbsp;&nbsp;&nbsp;Formato Campo:<input type=\"text\" id=\"txtFmt"+iTbl+"Mnu"+iMnuX+"\" size=\"20\">&nbsp;&nbsp;&nbsp;&nbsp;Parametros Fmt:<input type=\"text\" id=\"txtPara"+iTbl+"Mnu"+iMnuX+"\" size=\"20\"></td></tr>\n";
+  sCod+="<tr><td bgcolor=\"#E0FFFF\">Texto Parrafo 1:<input type=\"text\" id=\"txtP1_"+iTbl+"Mnu"+iMnuX+"\" size=\"30\">&nbsp;&nbsp;&nbsp;&nbsp;Texto Parrafo 2:<input type=\"text\" id=\"txtP2_"+iTbl+"Mnu"+iMnuX+"\" size=\"30\"></td></tr>\n";
+  sCod+="<tr><td><br></td></tr>";
+ }
+ sCod+="<tr><td><br></td></tr>";
+}
+sCod+="<tr align=\"center\"><td><input type=\"button\" value=\"Generar\" onclick=\"cmdGenerar_onClick()\"></td></tr>\n";
+sCod+="<tr align=\"center\"><td><textarea rows=\"20\" cols=\"120\" id=\"txtCodigo\" name=\"txtCodigo\"></textarea></td></tr>\n";
+sCod+="</table></form>\n";
+Ar201("Codigo",sCod);
+</script>
+</div>
+
+
+
+<div align="center">
+<table border="1" bgcolor="white">
+<tr><th colspan="3">Formateo de Datos</th></tr>
+<tr><th>Formato</th><th>Parametro</th><th>Ejemplo / Descripcion</th></tr>
+<tr>
+ <td align="center">1</td>
+ <td align="center">1</td>
+ <td>Normal</td>
+</tr>
+<tr>
+ <td align="center">2</td>
+ <td align="center">1</td>
+ <td>Mayusculas</td>
+</tr>
+<tr>
+ <td align="center">3</td>
+ <td align="center">1</td>
+ <td>Minusculas</td>
+</tr>
+<tr>
+ <td align="center">4</td>
+ <td align="center">6</td>
+ <td>Ceros Iniciales (Con esta configuracion podria mostrar 000085)</td>
+</tr>
+<tr>
+ <td align="center">5</td>
+ <td align="center">Si-No</td>
+ <td><font color="red">1</font>Si - No<font color="red">0</font> (Tipo de datos numerico)</td>
+</tr>
+<tr>
+ <td align="center">6</td>
+ <td align="center">Verdadero-Falso</td>
+ <td><font color="red">1</font>Si - No<font color="red">0</font> (Tipo de datos cadena)</td>
+</tr>
+
+<tr>
+ <td align="center">7</td>
+ <td align="center">1</td>
+ <td>Numero Negativos en Rojo <font color="red">-67</font></td>
+</tr>
+<tr>
+ <td align="center">8</td>
+ <td align="center">Primer-Segundo</td>
+ <td>Cadena segun el Semestre</td>
+</tr>
+<tr>
+ <td align="center">9</td>
+ <td align="center">Primer-Segundo-Tercer-Cuarto</td>
+ <td>Cadena segun el Timestre</td>
+</tr>
+<tr>
+ <td align="center">10</td>
+ <td align="center">Primer-Segundo-Tercer</td>
+ <td>cadena segun el Cuatrimestre</td>
+</tr>
+<tr>
+ <td align="center">11</td>
+ <td align="center">1 <font color="blue">|</font> 2 <font color="blue">|</font> 3</td>
+ <td>Formateo de Fecha 1.- 04-16-1991 2.- 16-04-1991  3.- 1991-04-16</td>
+</tr>
+<tr>
+ <td align="center">12</td>
+ <td align="center">1</td>
+ <td>Formato Moneda $22,678.78</td>
+</tr>
+<tr>
+ <td align="center">13</td>
+ <td align="center">1</td>
+ <td>Formato Moneda a letra VeintiTres pesos 00/100 centavos</td>
+</tr>
+<tr>
+ <td align="center">14</td>
+ <td align="center">1 <font color="blue">|</font> 2 <font color="blue">|</font> 3</td>
+ <td>Formateo de Fecha (Date Time) 1.- 04-16-1991 2.- 16-04-1991  3.- 1991-04-16</td>
+</tr>
+<tr>
+ <td align="center">15</td>
+ <td align="center">1</td>
+ <td>Color de Fondo de Celda</td>
+</tr>
+</table>
+</div>
+
+
+</body></html>

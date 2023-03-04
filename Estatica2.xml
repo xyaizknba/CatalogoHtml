@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Estaticas>
+
+ <Menu><Descripcion>Inicio</Descripcion></Menu>
+ <Menu><Descripcion>Persona</Descripcion></Menu>
+ <Menu><Descripcion>Deporte Practicado</Descripcion></Menu>
+ <Menu><Descripcion>Deportes</Descripcion></Menu>
+ <Menu><Descripcion>Empresa</Descripcion></Menu>
+ 
+ 
+<DataTable>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre,persona.correo, persona.telefono, ciudad.ciudad, persona.comentario, persona.numero, persona.color, persona.clave,  persona.fecha FROM persona LEFT JOIN ciudad ON ciudad.id_ciudad = persona.id_ciudad </Sql>
+  <TituloHtm>Personas</TituloHtm>
+  <EtiquetaCampos>Nombre@@E-Mail@@Telefono@@Ciudad@@Comentario@@Numero@@Color@@Clave@@Fecha</EtiquetaCampos>
+  <FormatoRegistro>1,1,1,1,1,1,1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1,1,1,1,1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,1,1,1,1,1,1,1,1,</AlineacionDatos>
+  <Parrafo1>Listado General</Parrafo1>
+  <Parrafo2>Informacion General</Parrafo2>
+  <NombreArchivo>persona.htm</NombreArchivo>
+ </Tabla>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre,persona.correo, persona.telefono FROM persona </Sql>
+  <TituloHtm>Contacto</TituloHtm>
+  <EtiquetaCampos>Nombre@@Correo@@Telefono</EtiquetaCampos>
+  <FormatoRegistro>1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,1,2</AlineacionDatos>
+  <Parrafo1>Formas de Contacto</Parrafo1>
+  <Parrafo2>Contacto</Parrafo2>
+  <NombreArchivo>contacto.htm</NombreArchivo>
+ </Tabla>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, ciudad.ciudad FROM persona LEFT JOIN ciudad ON ciudad.id_ciudad = persona.id_ciudad</Sql>
+  <TituloHtm>Ciudad Origen Persona</TituloHtm>
+  <EtiquetaCampos>Nombre@@Ciudad</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>
+  <AlineacionDatos>1,1</AlineacionDatos>
+  <Parrafo1>Parrafo 1 Empresa</Parrafo1>
+  <Parrafo2>Parrafo 2 Empresa</Parrafo2>
+  <NombreArchivo>persona_ciudad.htm</NombreArchivo>
+ </Tabla>
+
+</DataTable>  
+
+<DataTable> 
+
+ 
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, deporte.deporte FROM persona INNER JOIN deporte ON persona.id_deporte = deporte.id_deporte </Sql>
+  <TituloHtm>Deporte Practicado</TituloHtm>
+  <EtiquetaCampos>Nombre@@Deporte Practicado</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>
+  <AlineacionDatos>1,1</AlineacionDatos>
+  <Parrafo1>Deportes Practicados</Parrafo1>
+  <Parrafo2>Deporte practicado por Persona</Parrafo2>
+  <NombreArchivo>DeportePracticado.htm</NombreArchivo>
+ </Tabla> 
+ 
+</DataTable>
+
+
+<DataTable>
+ <Tabla>
+  <Sql>SELECT deporte.id_deporte, deporte.deporte FROM deporte</Sql>
+  <TituloHtm>Deporte</TituloHtm>
+  <EtiquetaCampos>Numero@@Deporte</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>  
+  <AlineacionDatos>2,2</AlineacionDatos>
+  <Parrafo1>Deportes</Parrafo1>
+  <Parrafo2>Lista de Deportes</Parrafo2>
+  <NombreArchivo>deporte.htm</NombreArchivo>
+ </Tabla> 
+</DataTable>
+
+
+
+
+<DataTable>
+    
+ <Tabla>
+  <Sql>SELECT empresa.id_empresa, empresa.empresa, giro.giro AS giro, ciudad.ciudad AS ciudad, empresa.razon_social FROM empresa LEFT JOIN giro ON giro.id_giro = empresa.id_giro LEFT JOIN ciudad ON ciudad.id_ciudad = empresa.id_ciudad </Sql>
+  <TituloHtm>Detalles Empresas</TituloHtm>
+  <EtiquetaCampos>No Empresa@@Empresa@@Giro@@Ciudad@@Razon Social</EtiquetaCampos>
+  <FormatoRegistro>1,1,1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1,1,1</ParametrosFormato>  
+  <AlineacionDatos>2,1,2,1,1</AlineacionDatos>
+  <Parrafo1>Detalles Empresas</Parrafo1>
+  <Parrafo2>Datos de Empresa</Parrafo2>
+  <NombreArchivo>DetallesEmpresa.htm</NombreArchivo>
+ </Tabla> 
+ 
+ <Tabla>
+  <Sql>SELECT empresa.empresa, ciudad.ciudad AS ciudad FROM empresa LEFT JOIN ciudad ON ciudad.id_ciudad = empresa.id_ciudad</Sql>
+  <TituloHtm>Empresa Por Ciudad</TituloHtm>
+  <EtiquetaCampos>Empresa@@Ciudad</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>  
+  <AlineacionDatos>1,1</AlineacionDatos>
+  <Parrafo1>Estados donde estan establecidas las Empresas</Parrafo1>
+  <Parrafo2>Ciudades</Parrafo2>
+  <NombreArchivo>EmpresaPorCiudad.htm</NombreArchivo>
+ </Tabla> 
+ 
+</DataTable>
+
+
+
+
+
+
+
+
+</Estaticas>

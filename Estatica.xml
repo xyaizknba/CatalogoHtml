@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Estaticas>
+
+ <Menu><Descripcion>Inicio</Descripcion></Menu>
+ <Menu><Descripcion>Persona</Descripcion></Menu>
+ <Menu><Descripcion>Empresa</Descripcion></Menu>
+ <Menu><Descripcion>Deporte</Descripcion></Menu>
+
+<DataTable>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, persona.clave, persona.correo, persona.telefono, persona.comentario, persona.soltero,  ciudad.ciudad ,  persona.fecha_pago, deporte.deporte AS deporte, persona.fecha_contratacion FROM persona LEFT JOIN ciudad ON ciudad.id_ciudad = persona.id_ciudad LEFT JOIN deporte ON deporte.id_deporte = persona.id_deporte</Sql>
+  <TituloHtm>Personas</TituloHtm>
+  <EtiquetaCampos>Nombre@@Clave@@Correo@@Telefono@@Comentario@@Soltero@@Ciudad@@Fecha Pago@@Deporte@@Fecha Contratacion</EtiquetaCampos>
+  <FormatoRegistro>1,1,1,1,1,1,1,1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1,1,1,1,1,1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,1,1,1,1,2,1,1,1,1</AlineacionDatos>
+  <Parrafo1>Lista de Personas</Parrafo1>
+  <Parrafo2>Personas Detalles</Parrafo2>
+  <NombreArchivo>persona.htm</NombreArchivo>
+ </Tabla>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, persona.correo, persona.telefono FROM persona</Sql>
+  <TituloHtm>Contacto</TituloHtm>
+  <EtiquetaCampos>Nombre@@Correo Electronico@@Telefono Celular</EtiquetaCampos>
+  <FormatoRegistro>1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,2,2</AlineacionDatos>
+  <Parrafo1>Contacto Usuarios del Sistema</Parrafo1>
+  <Parrafo2>Contacto</Parrafo2>
+  <NombreArchivo>contacto.htm</NombreArchivo>
+ </Tabla>
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, persona.comentario,  ciudad.ciudad AS ciudad, deporte.deporte AS deporte FROM persona LEFT JOIN ciudad ON ciudad.id_ciudad = persona.id_ciudad LEFT JOIN deporte ON deporte.id_deporte = persona.id_deporte </Sql>
+  <TituloHtm>Deporte Practicado</TituloHtm>
+  <EtiquetaCampos>Nombre@@Comentario@@Ciudad de Origen@@Deporte Practicado</EtiquetaCampos>
+  <FormatoRegistro>1,1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,1,1,2</AlineacionDatos>
+  <Parrafo1>Deporte Practicado</Parrafo1>
+  <Parrafo2>Deporte Practicado y Ciudad de Origen</Parrafo2>
+  <NombreArchivo>deporte_practicado.htm</NombreArchivo>
+ </Tabla>
+
+
+
+ <Tabla>
+  <Sql>SELECT persona.nombre, persona.soltero FROM persona</Sql>
+  <TituloHtm>Persona Soltera</TituloHtm>
+  <EtiquetaCampos>Nombre@@Soltero</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>
+  <AlineacionDatos>1,1</AlineacionDatos>
+  <Parrafo1></Parrafo1>
+  <Parrafo2></Parrafo2>
+  <NombreArchivo>persona_soltera.htm</NombreArchivo>
+ </Tabla>
+
+
+</DataTable>  
+
+<DataTable>
+ <Tabla>
+  <Sql>SELECT empresa.empresa, giro.giro AS giro, ciudad.ciudad AS ciudad, empresa.razon_social FROM empresa LEFT JOIN giro ON giro.id_giro = empresa.id_giro LEFT JOIN ciudad ON ciudad.id_ciudad = empresa.id_ciudad</Sql>
+  <TituloHtm>Empresa</TituloHtm>
+  <EtiquetaCampos>Empresa@@Giro@@Ciudad@@Razon Social</EtiquetaCampos>
+  <FormatoRegistro>1,1,1,1</FormatoRegistro>
+  <ParametrosFormato>1,1,1,1</ParametrosFormato>
+  <AlineacionDatos>1,1,1,1</AlineacionDatos>
+  <Parrafo1>Empresas Autorizadas</Parrafo1>
+  <Parrafo2>Listado de Empresas</Parrafo2>
+  <NombreArchivo>empresa.htm</NombreArchivo>
+ </Tabla> 
+ 
+ <Tabla>
+  <Sql>SELECT empresa.empresa, ciudad.ciudad AS ciudad FROM empresa LEFT JOIN ciudad ON ciudad.id_ciudad = empresa.id_ciudad</Sql>
+  <TituloHtm>Empresa Ciudad</TituloHtm>
+  <EtiquetaCampos>Empresa@@Ciudad</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>
+  <AlineacionDatos>2,2</AlineacionDatos>
+  <Parrafo1>Empresas Ubicacion</Parrafo1>
+  <Parrafo2>Listado de Empresas</Parrafo2>
+  <NombreArchivo>empresa_ciudad.htm</NombreArchivo>
+ </Tabla> 
+ 
+ 
+ 
+ 
+ 
+ 
+</DataTable>
+
+
+<DataTable>
+ <Tabla>
+  <Sql>SELECT deporte.id_deporte, deporte.deporte FROM deporte</Sql>
+  <TituloHtm>Deporte</TituloHtm>
+  <EtiquetaCampos>Folio Deporte@@Deporte</EtiquetaCampos>
+  <FormatoRegistro>1,1</FormatoRegistro>
+  <ParametrosFormato>1,1</ParametrosFormato>  
+  <AlineacionDatos>2,2</AlineacionDatos>
+  <Parrafo1>Listado de Deportes</Parrafo1>
+  <Parrafo2>Deportes disponibles en el Club</Parrafo2>
+  <NombreArchivo>deporte.htm</NombreArchivo>
+ </Tabla> 
+</DataTable>
+
+
+</Estaticas>

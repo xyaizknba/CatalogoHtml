@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Estaticas>
+
+ <Menu><Descripcion>Inicio</Descripcion></Menu>
+ <Menu><Descripcion>Menu 1</Descripcion></Menu>
+ <Menu><Descripcion>Menu 2</Descripcion></Menu>
+ <Menu><Descripcion>Menu 3</Descripcion></Menu>
+
+ <DataTable>
+ 
+  <Tabla>
+    <Sql>SELECT persona.nombre,persona.soltero, persona.comentario,persona.numero, persona.color, persona.clave, persona.precio,persona.fecha FROM persona</Sql>
+    <CamposDb>nombre,soltero,comentario,numero,color,clave,precio,fecha</CamposDb>
+    <TituloHtm>Personas</TituloHtm>
+    <EtiquetaCampos>Nombre@@Soltero@@Comentario@@Numero@@Color@@Clave@@Precio@@Fecha</EtiquetaCampos>
+    <AlineacionDatos>1,2,1,2,2,3,1,2</AlineacionDatos>
+    <Parrafo1>Parrafo Personas</Parrafo1>
+    <Parrafo2>Parrafo 2 Personas</Parrafo2>
+    <NombreArchivo>persona.php</NombreArchivo>
+  </Tabla>
+
+  <Tabla>
+    <Sql>SELECT giro.giro, giro.fechainsercion FROM giro</Sql>
+    <CamposDb>giro,fechainsercion</CamposDb>
+    <TituloHtm>Giro</TituloHtm>
+    <EtiquetaCampos>Giro@@Fecha Insercion</EtiquetaCampos>
+    <AlineacionDatos>1,2</AlineacionDatos>
+    <Parrafo1>Parrafo1 Giro</Parrafo1>
+    <Parrafo2>Parrafo2 Giro</Parrafo2>
+    <NombreArchivo>giro.php</NombreArchivo>
+  </Tabla>
+
+  <Tabla>
+    <Sql>SELECT empresa.empresa, empresa.id_giro, empresa.razon_social,empresa.fechainsercion FROM empresa</Sql>
+    <CamposDb>empresa,id_giro,razon_social,fechainsercion</CamposDb>
+    <TituloHtm>Empresa</TituloHtm>
+    <EtiquetaCampos>Empresa@@ID@@Razon Social@@Fecha Insercion</EtiquetaCampos>
+    <AlineacionDatos>1,1,1,1</AlineacionDatos>
+    <Parrafo1>Parrafo 1 Empresa</Parrafo1>
+    <Parrafo2>Parrafo 2 Empresa</Parrafo2>
+    <NombreArchivo>empresa.php</NombreArchivo>
+  </Tabla>
+
+ </DataTable>  
+
+
+ <DataTable>
+ 
+  <Tabla>
+    <Sql>SELECT deporte.id_deporte, deporte.deporte FROM deporte</Sql>
+    <CamposDb>id_deporte,deporte</CamposDb>
+    <TituloHtm>Deporte</TituloHtm>
+    <EtiquetaCampos>Numero@@Deporte</EtiquetaCampos>
+    <AlineacionDatos>1,1</AlineacionDatos>
+    <Parrafo1>Parrafo1 Deporte 1</Parrafo1>
+    <Parrafo2>Parrafo2 DEprte 2</Parrafo2>
+    <NombreArchivo>deporte.php</NombreArchivo>
+  </Tabla> 
+  
+ </DataTable>
+
+
+ <DataTable>
+ 
+  <Tabla>
+    <Sql>SELECT deporte.id_deporte, deporte.deporte,deporte.fechainsercion FROM deporte</Sql>
+    <CamposDb>id_deporte,deporte,fechainsercion</CamposDb>
+    <TituloHtm>Deporte con Fecha de Insercion</TituloHtm>
+    <EtiquetaCampos>Numero@@Deporte@@Fecha Insercion</EtiquetaCampos>
+    <AlineacionDatos>3,3,2</AlineacionDatos>
+    <Parrafo1>Parrafo1 Deporte 2-2</Parrafo1>
+    <Parrafo2>Parrafo2 Deporte 2-2</Parrafo2>
+    <NombreArchivo>deporte_con_fecha.php</NombreArchivo>
+  </Tabla> 
+  
+ </DataTable>
+
+
+</Estaticas>
