@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="es"><head>
+<style type="text/css">
+.btBorr{color:white;background-color:#800000;font-size:x-large}
+.thP{color:blue}
+.tCant{font-weight:bolder;font-size:large;}
+.tCantP{font-weight:bolder;font-size:xx-large;background-color:#ADD8E6}
+.trP{background-color:#F0FFF0}
+.trI{background-color:#D3D3D3}
+.total{background-color:yellow}
+</style>
+<link href="https://cdn.jsdelivr.net/gh/xyaizknba/ArmandoRamos/vImCat.css?v1" rel="stylesheet"><script src="traduction.js?v=47"></script><script src="vICatH1.js?v=47"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Carrito de Compras</title></head><body><div align="center"><h1 class="tit" id="TitCarrito">Carrito de Compras</h1>
+<script>
+document.getElementById("TitCarrito").innerHTML=sCarritoC;
+var iProd=1,i,sSumaTotal=0,sLocalStoVal,sLocalSV,sIdCantidad,sVersion=Ar82("v"),sCarrito = "<table bgcolor=\"white\" border=\"1\" width=\"95%\">";
+sCarrito += "<tr class=\"thP\"><th>"+sProducto+"</th><th>"+sPrecio+"</th><th>"+sCantidad+"</th><th>"+sSubTotal+"</th><th>"+sEliminar+"</th></tr>";
+for(i=1;i<=iNumeroProd;i++){
+ sLocalSV = Ar114((sVersion+"_"+i));
+ if(sLocalSV.length>5){
+  sLocalStoVal=sLocalSV.split("@@");
+  sIdCantidad="c"+sLocalStoVal[2];
+  sCarrito+="<tr class=\""+( (iProd % 2 == 0 )?"trP":"trI")+"\" align=\"center\" id=\"r"+sLocalStoVal[2]+"\">";
+  sCarrito+="<th class=\"tCant\"><a href=\""+sLocalStoVal[0]+"?v="+sVersion+"\">"+sLocalStoVal[4]+"</a></th>";
+  sCarrito+="<td class=\"tCant\"><span id=\"p"+sLocalStoVal[2]+"\">"+Ar28(sLocalStoVal[3],"$")+"</span></td>";
+  sCarrito+="<td><input class=\"tCant\" onpaste=\"return false\" type=\"text\" size=\"3\" maxlength=\"3\" id=\"c"+sLocalStoVal[2]+"\" value=\""+sLocalStoVal[5]+"\" onkeyup=\"Ar94(this)\" onblur=\"M('"+sLocalStoVal[2]+"','"+sLocalSV+"','"+ sIdCantidad +"')\"></td>";
+  sCarrito+="<td><input type=\"hidden\" value=\""+(sLocalStoVal[5] * sLocalStoVal[3])+"\" id=\"h"+sLocalStoVal[2]+"\" readonly><span id=\"s"+sLocalStoVal[2]+"\" class=\"tCant\">"+Ar28(sLocalStoVal[5] * sLocalStoVal[3],"$") +"</span></td>";
+  sCarrito+="<td><input type=\"button\" class=\"btBorr\" value=\"X\" onclick=\"QuitarProd("+sLocalStoVal[1]+","+sLocalStoVal[2]+")\"></td>";
+  sCarrito+="</tr>";
+  sSumaTotal+=(sLocalStoVal[5]*sLocalStoVal[3]);
+  iProd++;
+ }
+}
+sCarrito+="<tr>";
+sCarrito+="<td class=\"tCantP\" colspan=\"1\" align=\"right\">"+sTotal+":&nbsp;</td>";
+sCarrito+="<td class=\"tCantP\" colspan=\"4\" class=\"total\" align=\"center\"><span id=\"total\">"+Ar28(sSumaTotal,"$")+"</span></td>";
+sCarrito+="</tr>";
+sCarrito+="<tr align=\"center\"><td colspan=\"5\"><input type=\"button\" class=\"btBorr\" value=\""+sBorraCant+"\" id=\"Limpiar\" onclick=\"Limpiar()\"></td></tr>";
+sCarrito+="</table>";
+sCarrito+="<input type=\"hidden\" readonly id=\"txtTotal\" name=\"txtTotal\" value=\""+sSumaTotal+"\" size=\"20\">";
+document.write(sCarrito);
+</script>
+</div><br><br><table width="100%"><tr align="center"><td><a class="lkr" href="javascript:history.back()" >Regresar</a></td><td><a class="lki" href="index.htm?v=47">Inicio</a></td></tr></table><p align="center"><b><br></b></p></body></html>

@@ -1,0 +1,11 @@
+var sCarritoC="Carrito de Compras";
+var sAdd="Agregar al Carrito";
+var sDel="Eliminar del Carrito";
+var sProducto="Producto";
+var sPrecio="Precio";
+var sCantidad="Cantidad";
+var sSubTotal="Sub-Total";
+var sEliminar="Eliminar";
+var sTotal="Total";
+var sBorraCant="Borrar Cantidades";
+var sIrACarrito="Ir al Carrito";
