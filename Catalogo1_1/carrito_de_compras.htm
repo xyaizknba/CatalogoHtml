@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8"><title>Carrito de Compras</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"> .btBorr{color:white;background-color:#800000;font-size:x-large} .thP{color:blue} .tCant{font-weight:bolder;font-size:large;} .tCantP{font-weight:bolder;font-size:xx-large;background-color:#ADD8E6} .trP{background-color:#F0FFF0} .trI{background-color:#D3D3D3} .total{background-color:yellow} .TblPrec{border-color:#800000;border-style:solid;border-width=1px} </style>
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xyaizknba/jqm_tema@1/t3.css" /><script src="traduction.js?v=892"></script><script src="vICatJ1.js?v=892"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script><script src="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script></head><body><div data-role="page"><header data-role="header"><h1 align="center" class="TitPrinc">Carrito de Compras</h1></header><div data-role="content">
+<p align="center" class="NomPro" id="TitCarrito">Carrito de Compras</p>
+<div align="center">
+<script>
+document.getElementById("TitCarrito").innerHTML=sCarritoC;
+var iProd=1,i,sSumaTotal=0,sLocalStoVal,sLocalSV,sIdCantidad,sVersion=Ar82("v"),sCarrito = "<div style=\"overflow: auto\" class=\"TblPrec\"><table bgcolor=\"white\" width=\"100%\">";
+sCarrito += "<tr class=\"thP\"><th>"+sProducto+"</th><th>"+sPrecio+"</th><th>"+sCantidad+"</th><th>"+sSubTotal+"</th><th>"+sEliminar+"</th></tr>";
+for(i=1;i<=iNumeroProd;i++){
+ sLocalSV = Ar114((sVersion+"_"+i));
+ if(sLocalSV.length>5){
+  sLocalStoVal=sLocalSV.split("@@");
+  sIdCantidad="c"+sLocalStoVal[2];
+  sCarrito+="<tr class=\""+( (iProd % 2 == 0 )?"trP":"trI")+"\" align=\"center\" id=\"r"+sLocalStoVal[2]+"\">";
+  sCarrito+="<th class=\"tCant\"><a data-ajax=\"false\" data-role=\"button\" data-theme=\"c\" href=\""+sLocalStoVal[0]+"?v="+sVersion+"\">"+sLocalStoVal[4]+"</a></th>";
+  sCarrito+="<td class=\"tCant\"><span id=\"p"+sLocalStoVal[2]+"\">"+Ar28(sLocalStoVal[3],"$")+"</span></td>";
+  sCarrito+="<td><input class=\"tCant\" onpaste=\"return false\" type=\"text\" size=\"3\" maxlength=\"3\" id=\"c"+sLocalStoVal[2]+"\" value=\""+sLocalStoVal[5]+"\" onkeyup=\"Ar94(this)\" onblur=\"M('"+sLocalStoVal[2]+"','"+sLocalSV+"','"+ sIdCantidad +"')\"></td>";
+  sCarrito+="<td><input type=\"hidden\" value=\""+(sLocalStoVal[5] * sLocalStoVal[3])+"\" id=\"h"+sLocalStoVal[2]+"\" readonly><span id=\"s"+sLocalStoVal[2]+"\" class=\"tCant\">"+Ar28(sLocalStoVal[5] * sLocalStoVal[3],"$")+"</span></td>";
+  sCarrito+="<td><input type=\"button\" class=\"btBorr\" value=\"X\" onclick=\"QuitarProd("+sLocalStoVal[1]+","+sLocalStoVal[2]+")\"></td>";
+  sCarrito+="</tr>";
+  sSumaTotal+=(sLocalStoVal[5]*sLocalStoVal[3]);
+  iProd++;
+ }
+}
+sCarrito+="<tr>";
+sCarrito+="<td class=\"tCantP\" colspan=\"1\" align=\"right\">"+sTotal+":&nbsp;</td>";
+sCarrito+="<td class=\"tCantP\" colspan=\"4\" class=\"total\" align=\"center\"><span id=\"total\">"+Ar28(sSumaTotal,"$")+"</span></td>";
+sCarrito+="</tr>";
+sCarrito+="<tr align=\"center\"><td colspan=\"5\"><input type=\"button\" class=\"btBorr\" value=\""+sBorraCant+"\" id=\"Limpiar\" onclick=\"Limpiar()\"></td></tr>";
+sCarrito+="</table></div>";
+sCarrito+="<input type=\"hidden\" readonly id=\"txtTotal\" name=\"txtTotal\" value=\""+sSumaTotal+"\" size=\"20\">";
+document.write(sCarrito);
+</script>
+</div>
+</div><div class="ui-grid-a"><div class="ui-block-a"><a data-ajax="false" href="javascript:history.back()" data-role="button" data-theme="b" data-icon="back">Regresar</a></div><div class="ui-block-b"><a data-ajax="false" href="index.htm?v=892" data-role="button" data-theme="a" data-icon="home">Inicio</a></div></div><footer data-role="footer"><p align="center"><br></p></footer></div></body></html>
